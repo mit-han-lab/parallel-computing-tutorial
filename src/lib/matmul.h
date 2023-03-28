@@ -40,7 +40,8 @@ namespace matmul
             MULTITHREAD = 4,
             TRANSPOSE = 5,
             TRANSPOSE_SIMD = 6,
-            FAST = 7
+            FAST = 7,
+	    CUDA = 8
         };
         void naive_mat_mul(const struct matmul_params *params);
         void mat_mul_unrolling(const struct matmul_params *params);
@@ -50,6 +51,7 @@ namespace matmul
         void mat_mul_transpose(const struct matmul_params *params);
         void mat_mul_transpose_simd(const struct matmul_params *params);
         void mat_mul_fast(const struct matmul_params *params);
+	void mat_mul_cuda(const struct matmul_params *params);
         void evaluate(IMP_TYPE type, const struct matmul_params *params);
     };
 }
