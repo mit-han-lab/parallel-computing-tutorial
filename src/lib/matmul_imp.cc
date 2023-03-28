@@ -12,7 +12,7 @@
 #include <assert.h>
 #include <xmmintrin.h> // intel SSE intrinsic
 
-#define MAX_TRANSPOSE_BUFFER 2048 * 2048
+#define MAX_TRANSPOSE_BUFFER 2048 * 20480
 #define RUNS 1
 
 float transpose_tmp[MAX_TRANSPOSE_BUFFER];
@@ -337,6 +337,11 @@ namespace matmul
             function_name = "mat_mul_transpose_simd";
             for (int i = 0; i < RUNS; i++)
                 this->mat_mul_transpose_simd(params);
+            break;
+        case CUDA:
+            function_name = "mat_mul_cuda";
+            for (int i = 0; i < RUNS; i++)
+                this->mat_mul_cuda(params);
             break;
         case FAST:
             function_name = "mat_mul_fast";

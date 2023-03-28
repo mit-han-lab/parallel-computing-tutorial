@@ -7,8 +7,8 @@
 #define MAX_PRECISION_ERROR 0.01
 
 #define A_ROW 640
-#define A_COLUMN 1280
-#define B_ROW 1280
+#define A_COLUMN 12800
+#define B_ROW 12800
 #define B_COLUMN 640
 #define C_ROW 640
 #define C_COLUMN 640
@@ -92,6 +92,11 @@ int main()
     matmul_op.evaluate(MatmulOperator::TRANSPOSE_SIMD, &params);
     if (!check_identical(native_C, output_C, C_ROW * C_COLUMN))
         printf("incorrect output of mat_mul_transpose_simd\n");
+
+    // cuda
+    matmul_op.evaluate(MatmulOperator::CUDA, &params);
+    if (!check_identical(native_C, output_C, C_ROW * C_COLUMN))
+        printf("incorrect output of mat_mul_cuda\n");
 
     // For fast, we need to transpose B first
     for (int i = 0; i < B_COLUMN; i++)
