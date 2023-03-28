@@ -1,11 +1,14 @@
 # Compiler
-NVCC = nvcc
+NVCC = /usr/local/cuda/bin/nvcc
 
 # Compiler flags
 NVCC_FLAGS = -O3
 
 # Include directories
 INCLUDE_DIRS = -I./
+
+# Library directories
+LIBRARY_DIRS = -L/usr/local/cuda/lib64
 
 # Files
 TARGET = benchmark_run
