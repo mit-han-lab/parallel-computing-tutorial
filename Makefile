@@ -21,7 +21,7 @@ endif
 INCLUDE_DIRS = -I./include
 
 # Files
-TARGET = benchmark_run
+TARGET = benchmark
 SRC += benchmark.cpp
 
 OBJS = $(CUDA_SRCS:.cu=.o) $(SRC:.cpp=.o)
