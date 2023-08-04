@@ -1,4 +1,4 @@
-#include "lib/matmul.h"
+#include "matmul.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -83,21 +83,16 @@ int main()
     if (!check_identical(native_C, output_C, C_ROW * C_COLUMN))
         printf("incorrect output of mat_mul_multithreading\n");
 
-    // transpose
-    matmul_op.evaluate(MatmulOperator::TRANSPOSE, &params);
-    if (!check_identical(native_C, output_C, C_ROW * C_COLUMN))
-        printf("incorrect output of mat_mul_transpose\n");
-
-    // transpose + simd
+    // simd
     matmul_op.evaluate(MatmulOperator::TRANSPOSE_SIMD, &params);
     if (!check_identical(native_C, output_C, C_ROW * C_COLUMN))
         printf("incorrect output of mat_mul_transpose_simd\n");
-
+#ifdef CUDA_ENABLE
     // cuda
     matmul_op.evaluate(MatmulOperator::CUDA, &params);
     if (!check_identical(native_C, output_C, C_ROW * C_COLUMN))
         printf("incorrect output of mat_mul_cuda\n");
-
+#endif
     // For fast, we need to transpose B first
     for (int i = 0; i < B_COLUMN; i++)
         for (int j = 0; j < B_ROW; j++)

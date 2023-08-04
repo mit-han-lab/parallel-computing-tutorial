@@ -33,15 +33,14 @@ namespace matmul
     public:
         enum IMP_TYPE
         {
-            NAIVE = 0,
-            UNROLL = 1,
-            REORDER = 2,
-            TILING = 3,
-            MULTITHREAD = 4,
-            TRANSPOSE = 5,
-            TRANSPOSE_SIMD = 6,
-            FAST = 7,
-	    CUDA = 8
+            NAIVE,
+            UNROLL,
+            REORDER,
+            TILING,
+            MULTITHREAD,
+            TRANSPOSE_SIMD,
+            FAST,
+	        CUDA,
         };
         void naive_mat_mul(const struct matmul_params *params);
         void mat_mul_unrolling(const struct matmul_params *params);
@@ -51,7 +50,9 @@ namespace matmul
         void mat_mul_transpose(const struct matmul_params *params);
         void mat_mul_transpose_simd(const struct matmul_params *params);
         void mat_mul_fast(const struct matmul_params *params);
-	void mat_mul_cuda(const struct matmul_params *params);
+	    void mat_mul_cuda(const struct matmul_params *params);
         void evaluate(IMP_TYPE type, const struct matmul_params *params);
+    private:
+        void CHECK_MATRICES(const struct matrix *A, const struct matrix *B, const struct matrix *C);
     };
 }
