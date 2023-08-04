@@ -10,7 +10,7 @@ CUDA_AVAILABLE := $(shell command -v /usr/local/cuda/bin/nvcc 2> /dev/null)
 ifdef CUDA_AVAILABLE
 $(info CUDA is available!)
 	CC = /usr/local/cuda/bin/nvcc
-	CC_FLAGS += -DCUDA_ENABLE
+	CC_FLAGS += -DCUDA_ENABLE -x cu
 	CUDA_SRCS = $(wildcard src/*.cu)
 	LIB += -L/usr/local/cuda/lib64
 else
@@ -36,7 +36,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CC_FLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 %.o: %.cpp
-	$(CC) $(CC_FLAGS) $(INCLUDE_DIRS) -x cu -c $< -o $@
+	$(CC) $(CC_FLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 clean:
 	rm -f $(TARGET) $(OBJS)
