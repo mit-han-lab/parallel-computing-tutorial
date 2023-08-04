@@ -11,7 +11,7 @@ ifdef CUDA_AVAILABLE
 $(info CUDA is available!)
 	CC = /usr/local/cuda/bin/nvcc
 	CC_FLAGS += -DCUDA_ENABLE
-	CUDA_SRCS = $(wildcard cuda/*.cu)
+	CUDA_SRCS = $(wildcard src/*.cu)
 	LIB += -L/usr/local/cuda/lib64
 else
 $(info CUDA is unavailable!)
