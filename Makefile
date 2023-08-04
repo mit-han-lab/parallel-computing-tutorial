@@ -1,5 +1,5 @@
 # Compiler
-CC = gcc
+CC = g++
 CC_FLAGS = -O3
 SRC = $(wildcard src/*.cpp)
 LIB =
@@ -15,6 +15,10 @@ $(info CUDA is available!)
 	LIB += -L/usr/local/cuda/lib64
 else
 $(info CUDA is unavailable!)
+endif
+
+ifeq ($(shell uname -p),arm)
+	CC_FLAGS += -march=native
 endif
 
 # Include directories

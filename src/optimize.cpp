@@ -2,7 +2,13 @@
 #include <stdio.h>
 #include <assert.h>
 #include <pthread.h>
+#ifdef __SSE__
 #include <xmmintrin.h> // intel SSE intrinsic
+#endif
+#ifdef __ARM_NEON
+#include <arm_neon.h>
+#endif
+
 
 namespace matmul
 {
@@ -30,6 +36,7 @@ namespace matmul
                     for (int j = tj; j < tj + BLK_SIZE; j+=4)
                     {
                         float acc0[4] = {}, acc1[4] = {}, acc2[4] = {}, acc3[4] = {};
+                        #ifdef __SSE__
                         __m128 *acc0_fp_128 = (__m128*)acc0;
                         __m128 *acc1_fp_128 = (__m128*)acc1;
                         __m128 *acc2_fp_128 = (__m128*)acc2;
@@ -50,6 +57,29 @@ namespace matmul
                             val = _mm_mul_ps(Aik_Aik3, _mm_load_ps(&data_B[(j+3) * B->column + k]));
                             *acc3_fp_128 = _mm_add_ps(*acc3_fp_128, val);
                         }
+                        #endif
+                        #ifdef __ARM_NEON
+                        float32x4_t *acc0_fp_128 = (float32x4_t*)acc0;
+                        float32x4_t *acc1_fp_128 = (float32x4_t*)acc1;
+                        float32x4_t *acc2_fp_128 = (float32x4_t*)acc2;
+                        float32x4_t *acc3_fp_128 = (float32x4_t*)acc3;
+
+                        for (int k = 0; k < A->column; k+=4){
+                            float32x4_t Aik_Aik3 = vld1q_f32(&data_A[i * A->column + k]);
+                            float32x4_t val;
+                            val = vmulq_f32(Aik_Aik3, vld1q_f32(&data_B[j * B->column + k]));
+                            *acc0_fp_128 = vaddq_f32(*acc0_fp_128, val);
+
+                            val = vmulq_f32(Aik_Aik3, vld1q_f32(&data_B[(j+1) * B->column + k]));
+                            *acc1_fp_128 = vaddq_f32(*acc1_fp_128, val);
+
+                            val = vmulq_f32(Aik_Aik3, vld1q_f32(&data_B[(j+2) * B->column + k]));
+                            *acc2_fp_128 = vaddq_f32(*acc2_fp_128, val);
+
+                            val = vmulq_f32(Aik_Aik3, vld1q_f32(&data_B[(j+3) * B->column + k]));
+                            *acc3_fp_128 = vaddq_f32(*acc3_fp_128, val);
+                        }
+                        #endif
                         data_C[i * C->column + j] = acc0[0] + acc0[1] + acc0[2] + acc0[3];
                         data_C[i * C->column + j + 1] = acc1[0] + acc1[1] + acc1[2] + acc1[3];
                         data_C[i * C->column + j + 2] = acc2[0] + acc2[1] + acc2[2] + acc2[3];
