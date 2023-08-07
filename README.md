@@ -47,6 +47,21 @@ To run the benchmark, execute:
 
 The benchmark will run matrix multiplication using all techniques and output the time taken by each technique.
 
+You can also measure the performance impprovement achieved by a specific technique with an extra argument:
+
+Available arguments are: 
+- CUDA
+- SIMD_programming
+- loop_reodering
+- loop_tiling
+- loop_unrolling
+- multithreading
+
+For example, to measure performance improvement of the CUDA kernel:
+
+```bash
+./benchmark CUDA
+```
 ## Contributions
 We welcome contributions! If you have a suggestion, bug report, or want to contribute to the code, feel free to open an issue or create a pull request. Please make sure your code follows the current code style.
 
