@@ -1,4 +1,4 @@
-# Matrix Multiplication Optimization Techniques
+# Parallel Computing Tutorial
 
 This repository introduces several optimization techniques that can be applied to matrix multiplication. The techniques include loop unrolling, loop reordering, loop tiling, multithreading, SIMD programming, and CUDA programming. Each technique is implemented in a separate source file (*.cpp inside [src/](src/)) and all techniques use the common header file [matmul.h](include/matmul.h). In addition, we also provide a benchmark.cpp and a Makefile to compile and benchmark the different matrix multiplication implementations.
 
