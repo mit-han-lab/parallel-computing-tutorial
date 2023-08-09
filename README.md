@@ -1,9 +1,9 @@
 # Parallel Computing Tutorial
 
-This repository introduces several optimization techniques that can be applied to matrix multiplication. The techniques include loop unrolling, loop reordering, loop tiling, multithreading, SIMD programming, and CUDA programming. Each technique is implemented in a separate source file (*.cpp inside [src/](src/)) and all techniques use the common header file [matmul.h](include/matmul.h). In addition, we also provide a benchmark.cpp and a Makefile to compile and benchmark the different matrix multiplication implementations.
+This repository introduces several optimization techniques that can be applied to improve the parallelism of matrix multiplication. The techniques include loop unrolling, loop reordering, loop tiling, multithreading, SIMD programming, and CUDA programming. Each technique is implemented in a separate source file (*.cpp inside [src/](src/)) and all techniques use the common header file [matmul.h](include/matmul.h). In addition, we also provide a benchmark.cpp and a Makefile to compile and benchmark the different matrix multiplication implementations.
 
 ## Learning Resources
-If your want to learn more about optimization techniques of efficient deep learning, please check out lectures of [TinyML and Efficient Deep Learning Computing](https://efficientml.ai/).
+If your want to learn more about optimization techniques of efficient deep learning, please check out lectures on [TinyML and Efficient Deep Learning Computing](https://efficientml.ai/).
 
 ## Directory Structure
 Here is an outline of the main files and directories:
@@ -47,7 +47,7 @@ To run the benchmark, execute:
 
 The benchmark will run matrix multiplication using all techniques and output the time taken by each technique.
 
-You can also measure the performance impprovement achieved by a specific technique with an extra argument:
+You can also measure the performance improvement achieved by a specific technique with an extra argument:
 
 Available arguments are: 
 - CUDA
@@ -57,7 +57,7 @@ Available arguments are:
 - loop_unrolling
 - multithreading
 
-For example, to measure performance improvement of the CUDA kernel:
+For example, to measure the performance improvement of the CUDA kernel:
 
 ```bash
 ./benchmark CUDA
